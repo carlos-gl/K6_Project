@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   test:
@@ -14,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Instala o K6 e configura o repositório
     - name: Install K6
@@ -27,13 +24,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y k6
 
-    # Executa o teste e gera o relatório HTML e stdout
+    # Executa o teste e gera o relatório HTML
     - name: Run K6 Load Test with HTML Report
       run: k6 run script.js
 
     # Upload do relatório HTML
     - name: Upload HTML Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: k6-html-report
         path: result.html
